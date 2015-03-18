@@ -43,9 +43,9 @@ WORKDIR /home/hubot/hubot-root
 RUN mkdir -p hubot/bin 
 ADD hubot/package.json /home/hubot/hubot-root/hubot/package.json
 ADD hubot/hubot-scripts.json /home/hubot/hubot-root/hubot/hubot-scripts.json
-RUN sudo npm install -g mime@1.2.4 qs@0.4.2 && sudo npm install && sudo make package
+RUN sudo npm install -g mime@1.2.4 qs@0.4.2 coffee-script@1.6.3 && sudo npm install && sudo make package
 
-# checkout hubot-kandan, hubot-lingr, hubot-redmine
+# checkout hubot-lingr, hubot-trello
 WORKDIR /home/hubot/hubot-root/hubot
 RUN git clone https://github.com/miyagawa/hubot-lingr.git       node_modules/hubot-lingr   && \
     git clone https://github.com/hubot-scripts/hubot-trello.git node_modules/hubot-trello  && \
