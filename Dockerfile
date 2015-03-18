@@ -51,10 +51,9 @@ RUN git clone https://github.com/miyagawa/hubot-lingr.git       node_modules/hub
     git clone https://github.com/hubot-scripts/hubot-trello.git node_modules/hubot-trello  && \
     npm install faye && npm install ntwitter
 
-USER root
-ADD hubot/hubot.sh /etc/profile.d/hubot.sh
 
 # add supervisor config file 
+USER root
 RUN mkdir -p /var/log/supervisor /etc/supervisor/conf.d
 ADD sshd.conf /etc/supervisor/conf.d/sshd.conf
 ADD hubot/hubot.conf /etc/supervisor/conf.d/hubot.conf
