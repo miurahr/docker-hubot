@@ -58,8 +58,12 @@ RUN mkdir -p /var/log/supervisor /etc/supervisor/conf.d
 ADD sshd.conf /etc/supervisor/conf.d/sshd.conf
 ADD hubot/hubot.conf /etc/supervisor/conf.d/hubot.conf
 
+RUN mkdir -p /usr/local/bin
+ADD runner.sh /usr/local/bin/runner.sh
+RUN chmod +x /usr/local/bin/runner.sh
+
 # expose ports
 EXPOSE 22
 
 # define default command
-CMD supervisord -n
+CMD /usr/local/bin/runner.sh
