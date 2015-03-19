@@ -63,7 +63,7 @@ ADD runner.sh /usr/local/bin/runner.sh
 RUN chmod +x /usr/local/bin/runner.sh
 
 # expose ports
-EXPOSE 22
+EXPOSE 22 80
 
 # define default command
 CMD /usr/local/bin/runner.sh
