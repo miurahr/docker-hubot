@@ -2,8 +2,6 @@ FROM ubuntu:14.04.2
 
 MAINTAINER miurahr
 
-# install basic package
-ADD sources.list /etc/apt/sources.list
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update && \
     apt-get -y install \
@@ -20,7 +18,7 @@ RUN apt-get update && \
     make && \
     curl -sL https://deb.nodesource.com/setup | bash - && \
     apt-get install -y nodejs && \
-    apt-get clean && \
+    apt-get clean && rm -f /var/lib/apt/lists/* \
     mkdir -p /root/.ssh /var/run/sshd && \
     sed -ri 's/UsePAM yes/#UsePAM yes/g' /etc/ssh/sshd_config && \
     sed -ri 's/#UsePAM no/UsePAM no/g' /etc/ssh/sshd_config && \
@@ -33,7 +31,7 @@ RUN apt-get update && \
 RUN mkdir -p /var/log/supervisor /etc/supervisor/conf.d /usr/local/bin
 ADD supervisor/* /etc/supervisor/conf.d/
 ADD runner.sh /usr/local/bin/runner.sh
-RUN chmod +x /usr/local/bin/runner.sh
+RUN chmod +x /usr/local/bin/runner.sh && npm install -g mime@1.2.11 qs@0.4.2 coffee-script@1.6.3
 
 ENV HOME /home/hubot
 USER hubot
@@ -44,7 +42,7 @@ RUN wget https://github.com/github/hubot/archive/v2.6.0.zip && unzip v2.6.0.zip 
 ADD hubot/* /home/hubot/hubot-root/hubot/
 
 WORKDIR /home/hubot/hubot-root
-RUN sudo npm install -g mime@1.2.4 qs@0.4.2 coffee-script@1.6.3 && npm install && make package
+RUN npm install && make package
 
 # checkout hubot-lingr, hubot-trello
 WORKDIR /home/hubot/hubot-root/hubot
