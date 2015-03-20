@@ -44,7 +44,7 @@ RUN wget https://github.com/github/hubot/archive/v2.6.0.zip && unzip v2.6.0.zip 
 ADD hubot/* /home/hubot/hubot-root/hubot/
 
 WORKDIR /home/hubot/hubot-root
-RUN npm install -g mime@1.2.4 qs@0.4.2 coffee-script@1.6.3 && npm install && make package
+RUN sudo npm install -g mime@1.2.4 qs@0.4.2 coffee-script@1.6.3 && npm install && make package
 
 # checkout hubot-lingr, hubot-trello
 WORKDIR /home/hubot/hubot-root/hubot
