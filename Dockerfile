@@ -18,7 +18,7 @@ RUN apt-get update && \
     make && \
     curl -sL https://deb.nodesource.com/setup | bash - && \
     apt-get install -y nodejs && \
-    apt-get clean && rm -f /var/lib/apt/lists/* \
+    apt-get clean && rm -f /var/lib/apt/lists/* && \
     mkdir -p /root/.ssh /var/run/sshd && \
     sed -ri 's/UsePAM yes/#UsePAM yes/g' /etc/ssh/sshd_config && \
     sed -ri 's/#UsePAM no/UsePAM no/g' /etc/ssh/sshd_config && \
