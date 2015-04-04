@@ -1,12 +1,12 @@
 docker-hubot-lingr
 ===================
-Dockerfile to build image which is installed hubot.  
+
+Run hubot with lingr, trello plugins on Docker. 
 
 ## Usage
 
 ```
-$ sudo docker pull miurahr/hubot-lingr
-$ sudo docker run -d -p 22 miurahr/hubot-lingr
+$ docker-compose up
 ```
 
 ## Contents

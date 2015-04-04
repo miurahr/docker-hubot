@@ -1,0 +1,52 @@
+#! /bin/bash
+set -e
+
+INSTALL_DIR="/home/hubot"
+LOG_DIR="/var/log/hubot"
+
+HUBOT_NAME=${HUBOT_NAME:-Hubot}
+HUBOT_DESC=${HUBOT_DESC:-My Hubot}
+HUBOT_ADAPTER=${HUBOT_ADAPTER:-campfire}
+HUBOT_OWNER=${HUBOT_OWNER:-owner@example.net}
+
+export DEBIAN_FRONTEND=noninteractive
+apt-get update
+apt-get -y install \
+  supervisor \
+  curl \
+  git-core
+
+curl -sL https://deb.nodesource.com/setup | bash - 
+apt-get install -y nodejs
+npm update -g npm
+
+# install yeoman and hubot generator
+npm install -g yo generator-hubot
+
+# add user
+useradd -d ${INSTALL_DIR} -m hubot
+
+# move supervisord.log file to ${LOG_DIR}/supervisor/
+sed 's|^logfile=.*|logfile='"${LOG_DIR}"'/supervisor/supervisord.log ;|' -i /etc/supervisor/supervisord.conf
+
+# populate ${HUBOT_CONF}
+cat > ${HUBOT_CONF} <<__EOL__
+[program:hubot]
+command=/home/hubot/bin/hubot -a lingr
+autostart=true
+autorestart=false
+username=hubot
+directory=/home/hubot
+stdout_logfile=${LOG_DIR}/supervisor/%(program_name)s.log
+stderr_logfile=${LOG_DIR}/supervisor/%(program_name)s.log
+__EOL__
+
+# work on /home/hubot
+
+cd /home/hubot
+sudo -u hubot -E yo hubot --owner=${HUBOT_OWNER} --name ${HUBOT_NAME} --description "${HUBOT_DESC}" --adapter ${HUBOT_ADAPTER}
+
+# clean apt caches, build dependency
+apt-get clean
+apt-get -y autoremove
+find /var/lib/apt/lists/ -type f -exec rm -f {} \;

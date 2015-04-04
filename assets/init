@@ -1,15 +1,47 @@
 #!/bin/sh
 
-HUBOT_CONF=/etc/supervisor/conf.d/hubot.conf
+INSTALL_DIR="/home/hubot"
+CONFIG_DIR="${INSTALL_DIR}/config"
+LOG_DIR="/var/log/hubot"
 
+# populate ${LOG_DIR}
+mkdir -m 0755 -p ${LOG_DIR}/supervisor  && chown -R root:root ${LOG_DIR}/supervisor
 
-# hubot_lingr environment
-sudo sed -ri "s/HUBOT_LINGR_BOT=/HUBOT_LINGR_BOT=${HUBOT_LINGR_BOT}/g" $HUBOT_CONF
-sudo sed -ri "s/HUBOT_LINGR_SECRET=/HUBOT_LINGR_SECRET=${HUBOT_LINGR_BOT_SECRET}/g" $HUBOT_CONF
+appStart () {
+  if [ -f ${CONFIG_DIR}/environment ]; then
+    source ${CONFIG_DIR}/environment
+  fi
+  # start supervisord
+  exec /usr/bin/supervisord -n -c /etc/supervisor/supervisord.conf
+}
 
-# hubot_trello environment
-sudo sed -ri "s/HUBOT_TRELLO_KEY=/HUBOT_TRELLO_KEY=${HUBOT_TRELLO_KEY}/g" $HUBOT_CONF
-sudo sed -ri "s/HUBOT_TRELLO_TOKEN=/HUBOT_TRELLO_TOKEN=${HUBOT_TORELLO_TOKEN}/g" $HUBOT_CONF
-sudo sed -ri "s/HUBOT_TRELLO_BOARD=/HUBOT_TRELLO_BOARD=${HUBOT_TRELLO_BOARD}/g" $HUBOT_CONF
+appHelp () {
+  echo "Available options:"
+  echo " app:start          - Starts the server (default)"
+  echo " app:help           - Displays the help"
+  echo " [command]          - Execute the specified linux command eg. bash."
+}
 
-supervisord -n
+case "$1" in
+  app:start)
+    appStart
+    ;;
+  app:help)
+    appHelp
+    ;;
+  *)
+    if [ -x $1 ]; then
+      $1
+    else
+      prog=$(which $1)
+      if [ -n "${prog}" ] ; then
+        shift 1
+        $prog $@
+      else
+        appHelp
+      fi
+    fi
+    ;;
+esac
+
+exit 0

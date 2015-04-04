@@ -1,0 +1,4 @@
+HUBOT_NAME=Hubot
+HUBOT_DESC=My Hubot
+HUBOT_ADAPTER=lingr
+HUBOT_OWNER=miurahr@linux.com
