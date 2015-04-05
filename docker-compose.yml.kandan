@@ -1,0 +1,36 @@
+postgresql:
+  image: sameersbn/postgresql:9.4
+  environment:
+    - DB_USER=kandan
+    - DB_PASS=hogehoge
+    - DB_NAME=kandan_production
+  volumes:
+    - /opt/postgresql/data:/var/lib/postgresql
+kandan:
+  image: miurahr/kandan
+  environment:
+    - DB_USER=kandan
+    - DB_PASS=hogehoge
+    - DB_NAME=kandan_production
+  links:
+    - postgresql:postgresql
+  volumes:
+    - /var/log/kandan:/var/log/kandan
+  ports:
+    - 3000:3000
+hubot:
+  image: miurahr/hubot
+  environment:
+    - ADAPTER=kandan
+    - HUBOT_KEY=hogefuga
+    - HUBOT_KANDAN_CHANNELS=1
+    - HUBOT_KANDAN_TOKEN=hogefuga
+#   - HUBOT_KANDAN_HOST=hoge.heroku.com
+#   - HUBOT_KANDAN_PORT=443
+#   - HUBOT_KANDAN_PROTOCOL=https
+  links:
+    - kandan:kandan
+  volumes:
+    - /var/log/hubot:/var/log/hubot
+  ports:
+    - 80:8000

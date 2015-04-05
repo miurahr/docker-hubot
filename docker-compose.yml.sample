@@ -1,9 +1,13 @@
 hubot:
-  image: hubot-lingr
+  image: miurahr/hubot
   environment:
+    - ADAPTER=lingr
+    - HUBOT_CAMPFIRE_ACCOUNT=hubot
+    - HUBOT_CAMPFIRE_TOKEN=token
+    - HUBOT_CAMPFIRE_ROOMS="123,321"
     - HUBOT_LINGR_BOT=my_hubot
     - HUBOT_LINGR_SECRET=my_secret
   volumes:
     - /var/log/hubot:/var/log/hubot
   ports:
-    - 80
+    - 80:8000

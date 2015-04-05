@@ -1,13 +1,12 @@
 #!/bin/sh
 
-INSTALL_DIR="/home/hubot"
-CONFIG="/opt/config"
-LOG_DIR="/var/log/hubot"
-
-# populate ${LOG_DIR}
-mkdir -m 0755 -p ${LOG_DIR}/supervisor  && chown -R root:root ${LOG_DIR}/supervisor
+LOG_DIR=${LOG_DIR:-"/var/log/hubot"}
+INSTALL_DIR=${INSTALL_DIR:-"/home/hubot"}
+ADAPTER=${ADAPTER:-campfire}
 
 appStart () {
+  # update adapter
+  sed -ri "s|/bin/hubot -a .*$|/bin/hubot -a ${ADAPTER}/g" /etc/supervisor/hubot.conf
   # start supervisord
   exec /usr/bin/supervisord -n -c /etc/supervisor/supervisord.conf
 }
