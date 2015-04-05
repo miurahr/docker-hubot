@@ -1,7 +1,0 @@
-hubot-lingr:
-  image: miurahr/hubot-lingr
-  environments:
-    - HUBOT_LINGR_BOT=bot_id
-    - HUBOT_LINGR_SECRET=secret
-  ports:
-    - 80

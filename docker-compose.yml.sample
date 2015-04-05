@@ -1,0 +1,9 @@
+hubot:
+  image: hubot-lingr
+  environment:
+    - HUBOT_LINGR_BOT=my_hubot
+    - HUBOT_LINGR_SECRET=my_secret
+  volumes:
+    - /var/log/hubot:/var/log/hubot
+  ports:
+    - 80

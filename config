@@ -1,7 +1,9 @@
 #!/bin/sh
-export HUBOT_NAME=Hubot
-export HUBOT_DESC=My Hubot
-export HUBOT_ADAPTER=lingr
-export HUBOT_OWNER=miurahr@linux.com
-export HUBOT_LINGR_BOT=hubot_lingr
-export HUBOT_LINGR_SECRET=mysecret
+
+INSTALL_DIR=/home/hubot
+RUN_USER=hubot
+
+HUBOT_OWNER=miurahr@linux.com
+HUBOT_NAME=Hubot
+HUBOT_DESC="My Hubot"
+HUBOT_ADAPTER=lingr

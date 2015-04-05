@@ -8,9 +8,6 @@ LOG_DIR="/var/log/hubot"
 mkdir -m 0755 -p ${LOG_DIR}/supervisor  && chown -R root:root ${LOG_DIR}/supervisor
 
 appStart () {
-  if [ -f ${CONFIG} ]; then
-    source ${CONFIG}
-  fi
   # start supervisord
   exec /usr/bin/supervisord -n -c /etc/supervisor/supervisord.conf
 }

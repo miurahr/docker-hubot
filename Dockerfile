@@ -12,7 +12,7 @@ RUN chmod 755 /opt/init
 
 EXPOSE 80
 
-VOLUME ["/var/log/supervisor"]
+VOLUME ["/var/log/hubot"]
 
 WORKDIR /home/hubot
 ENTRYPOINT ["/opt/init"]

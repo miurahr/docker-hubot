@@ -1,22 +1,33 @@
 docker-hubot-lingr
 ===================
 
-Run hubot with lingr, trello plugins on Docker. 
+Run hubot with lingr adapter on Docker. 
 
 ## Usage
 
+
 ```
-$ docker-compose up
+$ git clone https://github.com/miurahr/docker-hubot-lingr.git
+$ cd docker-hubot-lingr
+$ cp docker-compose.yml.sample docker-compose.yml
+$ vi docker-compose.yml
+$ docker-compose up -d
 ```
 
-## Contents
+## Rebuild
 
-The image contains:
+```
+$ cd docker-hubot-lingr
+$ vi config
+$ docker-compose build
+```
 
-- hubot 2.6.0
-- hubot-lingr
-- hubot-trello
+## Debug
 
-## References
+Log in to running image like;
 
-  * https://github.com/github/hubot
+```
+$ docker ps -a
+$ docker exec -t -i dockerhubotlingr_HubotLingr_1 /bin/bash
+# cd /var/log/hubot
+```
