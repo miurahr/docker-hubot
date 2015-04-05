@@ -1,5 +1,5 @@
 hubot:
-  build: .
+  image: miurahr/hubot
   environment:
     - ADAPTER=lingr
     - HUBOT_CAMPFIRE_ACCOUNT=hubot

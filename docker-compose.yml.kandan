@@ -12,7 +12,6 @@ kandan:
     - DB_USER=kandan
     - DB_PASS=hogehoge
     - DB_NAME=kandan_production
-    - HUBOT_KEY=hogefuga
   links:
     - postgresql:postgresql
   volumes:
@@ -24,6 +23,11 @@ hubot:
   environment:
     - ADAPTER=kandan
     - HUBOT_KEY=hogefuga
+    - HUBOT_KANDAN_CHANNELS=1
+    - HUBOT_KANDAN_TOKEN=hogefuga
+#   - HUBOT_KANDAN_HOST=hoge.heroku.com
+#   - HUBOT_KANDAN_PORT=443
+#   - HUBOT_KANDAN_PROTOCOL=https
   links:
     - kandan:kandan
   volumes:
