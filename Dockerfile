@@ -1,10 +1,9 @@
 FROM ubuntu:14.04.2
 MAINTAINER miurahr@linux.com
 
-
 ADD install /opt/
 RUN chmod 755 /opt/install
-ADD config /opt/config
+ADD build-config /opt/build-config
 RUN /opt/install
 
 ADD init /opt/

@@ -1,9 +1,0 @@
-#!/bin/sh
-
-INSTALL_DIR=/home/hubot
-RUN_USER=hubot
-
-HUBOT_OWNER=miurahr@linux.com
-HUBOT_NAME=Hubot
-HUBOT_DESC="My Hubot"
-HUBOT_ADAPTER=lingr
