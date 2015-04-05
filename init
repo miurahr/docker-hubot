@@ -1,15 +1,15 @@
 #!/bin/sh
 
 INSTALL_DIR="/home/hubot"
-CONFIG_DIR="${INSTALL_DIR}/config"
+CONFIG="/opt/config"
 LOG_DIR="/var/log/hubot"
 
 # populate ${LOG_DIR}
 mkdir -m 0755 -p ${LOG_DIR}/supervisor  && chown -R root:root ${LOG_DIR}/supervisor
 
 appStart () {
-  if [ -f ${CONFIG_DIR}/environment ]; then
-    source ${CONFIG_DIR}/environment
+  if [ -f ${CONFIG} ]; then
+    source ${CONFIG}
   fi
   # start supervisord
   exec /usr/bin/supervisord -n -c /etc/supervisor/supervisord.conf

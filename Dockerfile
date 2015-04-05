@@ -1,20 +1,20 @@
 FROM ubuntu:14.04.2
 MAINTAINER miurahr@linux.com
 
-ADD assets/install /tmp/
-ADD config /tmp/
-RUN chmod 755 /tmp/install
-RUN /tmp/install
-RUN rm /tmp/install
 
-ADD assets/init /opt/app/
-RUN chmod 755 /opt/app/init
+ADD install /opt/
+RUN chmod 755 /opt/install
+ADD config /opt/config
+RUN /opt/install
+
+ADD init /opt/
+RUN chmod 755 /opt/init
 
 EXPOSE 80
 
 VOLUME ["/var/log/supervisor"]
 
 WORKDIR /home/hubot
-ENTRYPOINT ["/opt/app/init"]
+ENTRYPOINT ["/opt/init"]
 CMD ["app:start"]
 

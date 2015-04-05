@@ -3,8 +3,5 @@ hubot-lingr:
   environments:
     - HUBOT_LINGR_BOT=bot_id
     - HUBOT_LINGR_SECRET=secret
-    - HUBOT_TRELLO_KEY=key
-    - HUBOT_TRELLO_TOKEN=token
-    - HUBOT_TRELLO_BOARD=board_id
   ports:
     - 80
