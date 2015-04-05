@@ -4,6 +4,29 @@ LOG_DIR=${LOG_DIR:-"/var/log/hubot"}
 INSTALL_DIR=${INSTALL_DIR:-"/home/hubot"}
 ADAPTER=${ADAPTER:-campfire}
 
+case "$ADAPTER" in
+  kandan)
+      HUBOT_KANDAN_TOKEN=${HUBOT_KANDAN_TOKEN:-$KANDAN_ENV_HUBOT_KEY}
+      HUBOT_KANDAN_HOST=${HUBOT_KANDAN_HOST:-$KANDAN_PORT_80_TCP_ADDR}
+      HUBOT_KANDAN_PORT=${HUBOT_KANDAN_PORT:-$KANDAN_PORT_80_TCP_PORT}
+
+      # when not determin kandan host
+      if [ -n "${HUBOT_KANDAN_HOST}" ];then
+        echo "Critical: Cannot find kandan host. abort..."
+        exit 1
+      fi
+
+      echo "environment=" >> /etc/supervisor/hubot.conf
+      echo "  HUBOT_KANDAN_TOKEN=\"${HUBOT_KANDAN_TOKEN}\"," >> /etc/supervisor/hubot.conf
+      if [ ! -n "${HUBOT_KANDAN_PORT}" ]; then
+        echo "  HUBOT_KANDAN_PORT=${HUBOT_KANDAN_PORT}," >> /etc/supervisor/hubot.conf
+      fi
+      echo "  HUBOT_KANDAN_HOST=${HUBOT_KANDAN_HOST}" >> /etc/supervisor/hubot.conf
+    ;;
+  *)
+    ;;
+esac
+
 appStart () {
   # update adapter
   sed -ri "s|/bin/hubot -a .*$|/bin/hubot -a ${ADAPTER}/g" /etc/supervisor/hubot.conf

@@ -22,12 +22,9 @@ hubot:
   image: miurahr/hubot
   environment:
     - ADAPTER=kandan
-    - HUBOT_KEY=hogefuga
-    - HUBOT_KANDAN_CHANNELS=1
-    - HUBOT_KANDAN_TOKEN=hogefuga
-#   - HUBOT_KANDAN_HOST=hoge.heroku.com
-#   - HUBOT_KANDAN_PORT=443
-#   - HUBOT_KANDAN_PROTOCOL=https
+#   - HUBOT_KANDAN_TOKEN=hogefuga # automate detection through link
+#   - HUBOT_KANDAN_HOST=${KANDAN_PORT_80_TCP_ADDR}
+#   - HUBOT_KANDAN_PORT=${KANDAN_PORT_80_TCP_PORT}
   links:
     - kandan:kandan
   volumes:
